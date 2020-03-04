@@ -17,24 +17,45 @@ require_once('header.php');
 	border-style: solid;
 	border-width: 5px;
 }
+#create {
+	
+}
 </style>
 
   <div class="container" style="background-color: #bfbfbf">
    <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
-    <h1>Available Games</h1>
+   <br>
+    <a href="create.php" id="create"><button type="button" class="btn btn-warning">Add your game</button></a>
+	<br>
+	<?php
+	if (isset($_GET['create'])){
+			echo '<br><div class="alert alert-success" role="alert">
+				Entry Successfuly created.
+				</div>';
+		}
+	if (isset($_GET['delete'])){
+		echo '<br><div class="alert alert-danger" role="alert">
+				Entry Successfuly deleted.
+			</div>';
+		}
+		?>
+	<br>
+	<h1>Available Games</h1>
+	<hr>
 	<?php
 		for($i=0;$i<count($games);$i++){
-				echo '<div class="media">
+				echo '<a href="modify.php?index='.$i.'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>
+					<div class="media">
 						<img id="logo" src="'.$games[$i]['picture'].'" class="mr-3" style="max-width:200px">
 					<div class="media-body">
 						<h5 class="mt-0">'.$games[$i]['name'].'</h5>
 						<p>Genre: '.$games[$i]['genre'].'</p>
 						<p>Price: $'.$games[$i]['price'].'</p>
-						<p>Website:<a href="'.$games[$i]['website'].'"><button type="button" class="btn btn-dark">Click here to visit their website.</button></a></p>
+						<p>Website:<a href="'.$games[$i]['website'].'" target="_blank"><button type="button" class="btn btn-dark">Click here to visit their website.</button></a></p>
 						<p><a href="details.php?index='.$i.'"><button type="button" class="btn btn-dark">Click to see details</button></a></p>
 					</div>
-				</div>';
-			echo '<hr>';
+				</div>
+			<hr>';
 		}
 	?>
 	</div>

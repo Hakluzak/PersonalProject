@@ -20,11 +20,12 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 ?>
 <!doctype html>
 <style>
-#homeBut {
-	display: inline;
+.navBut {
+	display: block;
 	align: right;
 	text-align: center;
 	margin-left: 90%;
+	padding-bottom: 5px;
 }
 .webLnk {
 	padding: 5px;
@@ -32,6 +33,9 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 #logo {
 	border-style: solid;
 	border-width: 5px;
+}
+.nav {
+	
 }
 </style>
 
@@ -44,9 +48,21 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 	<body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	 <div class="container" style="background-color:#bfbfbf">
 		<h1><?= $games[$_GET['index']]['name'] ?></h1>
-		<a href="/personalproject/index.php" id="homeBut"><button type="button" class="btn btn-primary">Home</button></a>
+		<div class="nav">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					<a class="nav-link" href="index.php"><button type="button" class="btn btn-primary">Home</button></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="modify.php?index=<?= $_GET['index'] ?>"><button type="button" class="btn btn-secondary">Modify</button></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="delete.php?index=<?= $_GET['index'] ?>"><button type="button" class="btn btn-secondary">Delete</button></a>
+				</li>
+			</ul>
+		</div>
 		<img id="logo" src="<?=$games[$_GET['index']]['picture']?>" style="max-width:500px"/>
-		<p class="webLnk"><a href="<?= $games[$_GET['index']]['website'] ?>"><button type="button" class="btn btn-dark">Official Website</button></a></p>
+		<p class="webLnk"><a href="<?= $games[$_GET['index']]['website'] ?>" target="_blank"><button type="button" class="btn btn-dark">Official Website</button></a></p>
 		<p>$<?= $games[$_GET['index']]['price']?></p>
 		<p>Early Access: <?= $games[$_GET['index']]['earlyAccess']?></p>
 		<p><?= $games[$_GET['index']]['details']?></p>

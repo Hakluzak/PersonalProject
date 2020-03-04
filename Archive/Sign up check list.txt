@@ -1,0 +1,8 @@
+if the user sends the form
+
+validate the email
+validate the password
+create file if doesnt exist
+check if email exists
+check password match
+write login message
