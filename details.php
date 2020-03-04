@@ -47,6 +47,9 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 	
 	<body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	 <div class="container" style="background-color:#bfbfbf">
+	<?php
+	require_once('nav.php');
+	?>
 		<h1><?= $games[$_GET['index']]['name'] ?></h1>
 		<div class="nav">
 			<ul class="nav nav-pills">

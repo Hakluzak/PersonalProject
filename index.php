@@ -23,9 +23,11 @@ require_once('header.php');
 </style>
 
   <div class="container" style="background-color: #bfbfbf">
+	<?php
+	require_once('nav.php');
+	?>
    <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
    <br>
-    <a href="create.php" id="create"><button type="button" class="btn btn-warning">Add your game</button></a>
 	<br>
 	<?php
 	if (isset($_GET['create'])){

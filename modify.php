@@ -50,6 +50,9 @@ require_once('header.php');
 </style>
 <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	<div class="container" style="background-color: #bfbfbf">
+		<?php
+			require_once('nav.php');
+		?>
 		<h1>Modify a Game</h1>
 		<a href="index.php" id="homeBut"><button type="button" class="btn btn-primary">Home</button></a>
 		<form action="modify.php?index=<?php echo $_GET['index'] ?>" method="POST">
