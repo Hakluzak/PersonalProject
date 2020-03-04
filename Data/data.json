@@ -21,13 +21,13 @@
     },
     {
         "name": "Stardew Valley",
-        "website": "https:\/\/www.stardewvalley.net\/",
         "picture": "https:\/\/cdn57.androidauthority.net\/wp-content\/uploads\/2019\/03\/stardew-valley-title-1-1340x754.jpg",
-        "price": "19.99",
-        "earlyAccess": "No",
-        "personalRating": "10",
         "genre": "Sandbox RPG",
-        "details": "You're moving to the valley... <br><br> You've inherited your grandfather's old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life!"
+        "price": "19.99",
+        "website": "https:\/\/www.stardewvalley.net\/",
+        "earlyAccess": "n\/a",
+        "personalRating": "10",
+        "details": "You're moving to the valley... <br><br> You've inherited your grandfather's old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life!  "
     },
     {
         "name": "Divinity: Original Sin 2",

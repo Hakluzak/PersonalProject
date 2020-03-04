@@ -1,15 +1,13 @@
 <?php
-//require_once('data.php');
-
-$handle=fopen('data.json','r');
+$handle=fopen('./data/data.json','r');
 
 
-require_once('functions.php');
-$games=jsonToArray('data.json');
+require_once('./utils/functions.php');
+$games=jsonToArray('./data/data.json');
 
 $title='Home';
 
-require_once('header.php');
+require_once('./reqs/header.php');
 ?>
 
 <style>
@@ -24,7 +22,7 @@ require_once('header.php');
 
   <div class="container" style="background-color: #bfbfbf">
 	<?php
-	require_once('nav.php');
+	require_once('./reqs/nav.php');
 	?>
    <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
    <br>
@@ -62,7 +60,7 @@ require_once('header.php');
 	?>
 	</div>
 	<?php
-	require_once('footer.php');
+	require_once('./reqs/footer.php');
 	?>
 
   </body>

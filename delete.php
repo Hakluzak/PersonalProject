@@ -1,6 +1,6 @@
 <?php
-require_once('JSONfunctions.php');
-deleteValue($_GET['index'],'data.json');
+require_once('./utils/JSONfunctions.php');
+deleteValue($_GET['index'],'./data/data.json');
 header("Location:index.php?delete=yes");
 ?>
 <!doctype html>
@@ -27,7 +27,7 @@ header("Location:index.php?delete=yes");
 <html lang="en">
 
 	<?php
-	require_once('header.php');
+	require_once('./reqs/header.php');
 	?>
 	
 	<body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
@@ -37,7 +37,7 @@ header("Location:index.php?delete=yes");
 	</body>
 	
 	<?php
-		require_once('footer.php');
+		require_once('./reqs/footer.php');
 	?>
   </body>
 </html>

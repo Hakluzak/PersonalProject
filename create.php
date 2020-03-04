@@ -1,13 +1,13 @@
 <?php
 
-$handle=fopen('data.json','r');
+$handle=fopen('./data/data.json','r');
 
 
-require('functions.php');
+require('./utils/functions.php');
 
-$games=jsonToArray('data.json');
+$games=jsonToArray('./data/data.json');
 
-require_once('JSONfunctions.php');
+require_once('./utils/JSONfunctions.php');
 
 if ($_POST != NULL){
 	$newgame = [
@@ -20,14 +20,14 @@ if ($_POST != NULL){
 		'personalRating'=>$_POST['rating'],
 		'details'=>$_POST['game_desc']
 		];
-	writeJSON('data.json',$newgame);
+	writeJSON('./data/data.json',$newgame);
 	header("Location:index.php?create=done");
 	}
 
 
 $title='Create';
 
-require_once('header.php');
+require_once('./reqs/header.php');
 ?>
 
 <style>
@@ -52,7 +52,7 @@ require_once('header.php');
 <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	<div class="container" style="background-color: #bfbfbf">
 		<?php
-			require_once('nav.php');
+			require_once('./reqs/nav.php');
 		?>
 		<h1>Add Your Game</h1>
 		<a href="index.php" id="homeBut"><button type="button" class="btn btn-primary">Home</button></a>
@@ -108,7 +108,7 @@ require_once('header.php');
 		</form>
 
 	<?php
-	require_once('footer.php');
+	require_once('./reqs/footer.php');
 	?>
 
 	</body>

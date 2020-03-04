@@ -1,9 +1,9 @@
 <?php
 //require_once('data.php');
 
-require_once('functions.php');
+require_once('./utils/functions.php');
 
-$games=jsonToArray('data.json');
+$games=jsonToArray('./data/data.json');
 //$json_string=file_get_contents('data.json');
 //$games=json_decode($json_string,true);
 
@@ -42,20 +42,17 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 <html lang="en">
 
 	<?php
-	require_once('header.php');
+	require_once('./reqs/header.php');
 	?>
 	
 	<body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	 <div class="container" style="background-color:#bfbfbf">
 	<?php
-	require_once('nav.php');
+	require_once('./reqs/nav.php');
 	?>
 		<h1><?= $games[$_GET['index']]['name'] ?></h1>
 		<div class="nav">
 			<ul class="nav nav-pills">
-				<li class="nav-item">
-					<a class="nav-link" href="index.php"><button type="button" class="btn btn-primary">Home</button></a>
-				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="modify.php?index=<?= $_GET['index'] ?>"><button type="button" class="btn btn-secondary">Modify</button></a>
 				</li>
@@ -74,7 +71,7 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 	</body>
 	
 	<?php
-		require_once('footer.php');
+		require_once('./reqs/footer.php');
 	?>
   </body>
 </html>

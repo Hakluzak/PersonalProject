@@ -2,7 +2,7 @@
 
 
 if ($_POST != NULL){
-	require_once('JSONfunctions.php');
+	require_once('./utils/JSONfunctions.php');
 	$editsMade = [
 		'name'=>$_POST['game_name'],
 		'picture'=>$_POST['image_link'],
@@ -13,12 +13,12 @@ if ($_POST != NULL){
 		'personalRating'=>$_POST['rating'],
 		'details'=>$_POST['game_desc']
 		];
-		modifyJSON('data.json',$_GET['index'],$editsMade);
+		modifyJSON('./data/data.json',$_GET['index'],$editsMade);
 		header('Location:details.php?index='.$_GET['index'].'');
 	}
 
 // load contents from file
-$json_string=file_get_contents('data.json');
+$json_string=file_get_contents('./data/data.json');
 // convert json to php array
 $games=json_decode($json_string,true);
 // use GET index to retrieve a specific element from php array
@@ -26,7 +26,7 @@ $game=$games[$_GET['index']];
 
 $title='Modify';
 
-require_once('header.php');
+require_once('./reqs/header.php');
 ?>
 
 <style>
@@ -51,7 +51,7 @@ require_once('header.php');
 <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	<div class="container" style="background-color: #bfbfbf">
 		<?php
-			require_once('nav.php');
+			require_once('./reqs/nav.php');
 		?>
 		<h1>Modify a Game</h1>
 		<a href="index.php" id="homeBut"><button type="button" class="btn btn-primary">Home</button></a>
@@ -107,7 +107,7 @@ require_once('header.php');
 		</form>
 
 	<?php
-	require_once('footer.php');
+	require_once('./reqs/footer.php');
 	?>
 
 	</body>
