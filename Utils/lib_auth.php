@@ -34,7 +34,7 @@ function signup($database_file,$success_URL){
 		$h=fopen($database_file,'a+');
 		fwrite($h,$_POST['email'].';'.$_POST['password'].PHP_EOL);
 		fclose($h);
-		header('location: '.$success_URL);
+		header('location: '.$success_URL.'?message=signup');
 	}
 }
 function signin($database_file,$user_key,$success_URL){
@@ -79,7 +79,7 @@ function signin($database_file,$user_key,$success_URL){
 function signout($destination_URL){
 	$_SESSION=[];
 	session_destroy();
-	header('location:'.$destination_URL);
+	header('location:'.$destination_URL.'?message=signout');
 }
 
 function is_logged($user_key){

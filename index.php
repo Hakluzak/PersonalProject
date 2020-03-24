@@ -3,6 +3,7 @@ $handle=fopen('./data/data.json','r');
 
 
 require_once('./utils/functions.php');
+//require_once('./utils/lib_auth.php');
 $games=jsonToArray('./data/data.json');
 
 $title='Home';

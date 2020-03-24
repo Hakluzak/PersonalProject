@@ -20,9 +20,10 @@
 				<li>
 					<a class="nav-link" href="signin.php"><button type="button" class="btn btn-info">Sign in</button></a>
 				</li>
-				<li>
-					<a class="nav-link" href="signout.php"><button type="button" class="btn btn-danger">Sign Out</button></a>
-				</li>
+					<?php
+					require_once('./utils/lib_auth.php');					
+					if (is_logged('uID')) echo '<li><a class="nav-link" href="signout.php"><button type="button" class="btn btn-danger">Sign Out</button></a></li>'
+					?>
 			</ul>
 		</div>
 	</nav>
