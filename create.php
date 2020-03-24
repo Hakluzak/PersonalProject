@@ -1,4 +1,11 @@
 <?php
+require_once('./utils/lib_auth.php');
+
+if (!is_logged('uID')){ 
+	header('location: index.php');
+	die();
+}
+
 
 $handle=fopen('./data/data.json','r');
 

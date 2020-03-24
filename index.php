@@ -45,8 +45,8 @@ require_once('./reqs/header.php');
 	<hr>
 	<?php
 		for($i=0;$i<count($games);$i++){
-				echo '<a href="modify.php?index='.$i.'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>
-					<div class="media">
+				if (is_logged('uID')) echo '<a href="modify.php?index='.$i.'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>';
+				echo'<div class="media">
 						<img id="logo" src="'.$games[$i]['picture'].'" class="mr-3" style="max-width:200px">
 					<div class="media-body">
 						<h5 class="mt-0">'.$games[$i]['name'].'</h5>

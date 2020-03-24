@@ -1,4 +1,11 @@
 <?php
+require_once('./utils/lib_auth.php');
+
+if (!is_logged('uID')){ 
+	header('location: index.php');
+	die();
+}
+
 require_once('./utils/JSONfunctions.php');
 deleteValue($_GET['index'],'./data/data.json');
 header("Location:index.php?delete=yes");

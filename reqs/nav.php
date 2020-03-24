@@ -1,3 +1,6 @@
+<?php
+require_once('./utils/lib_auth.php');
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,19 +14,24 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="index.php"><button type="button" class="btn btn-primary">Home</button></a>
 				</li>
+				<?php
+				if (is_logged('uID')) echo '
 				<li class="nav-item">
 					<a class="nav-link" href="create.php"><button type="button" class="btn btn-primary">Add Your Game</button></a>
-				</li>
+				</li>';
+				if (!is_logged('uID')) echo '
 				<li>
 					<a class="nav-link" href="signup.php"><button type="button" class="btn btn-info">Sign up</button></a>
-				</li>
+				</li>';
+				if (!is_logged('uID')) echo '
 				<li>
 					<a class="nav-link" href="signin.php"><button type="button" class="btn btn-info">Sign in</button></a>
-				</li>
-					<?php
-					require_once('./utils/lib_auth.php');					
-					if (is_logged('uID')) echo '<li><a class="nav-link" href="signout.php"><button type="button" class="btn btn-danger">Sign Out</button></a></li>'
-					?>
+				</li>';				
+				if (is_logged('uID')) echo '
+				<li>
+					<a class="nav-link" href="signout.php"><button type="button" class="btn btn-danger">Sign Out</button></a>
+				</li>';
+				?>
 			</ul>
 		</div>
 	</nav>
