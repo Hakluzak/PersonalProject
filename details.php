@@ -56,12 +56,12 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 			if (is_logged('uID')) echo '
 			<ul class="nav nav-pills">
 				<li class="nav-item">
-					<a class="nav-link" href="modify.php?index=<?= $_GET['.index.'] ?>"><button type="button" class="btn btn-secondary">Modify</button></a>
+					<a class="nav-link" href="modify.php?index=<?= $_GET['.'index'.'] ?>"><button type="button" class="btn btn-secondary">Modify</button></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="delete.php?index=<?= $_GET['.index.'] ?>"><button type="button" class="btn btn-secondary">Delete</button></a>
+					<a class="nav-link" href="delete.php?index=<?= $_GET['.'index'.'] ?>"><button type="button" class="btn btn-secondary">Delete</button></a>
 				</li>
-			</ul>';
+			</ul>'
 			?>
 		</div>
 		<img id="logo" src="<?=$games[$_GET['index']]['picture']?>" style="max-width:500px"/>
