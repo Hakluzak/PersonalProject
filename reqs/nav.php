@@ -1,5 +1,5 @@
 <?php
-require_once('./utils/lib_auth.php');
+require_once('C:xampp/htdocs/PersonalProject/utils/lib_auth.php');
 ?>
 <!doctype html>
 <html lang="en">

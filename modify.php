@@ -7,19 +7,22 @@ if (!is_logged('uID')){
 }
 
 if ($_POST != NULL){
-	require_once('./utils/JSONfunctions.php');
-	$editsMade = [
-		'name'=>$_POST['game_name'],
-		'picture'=>$_POST['image_link'],
-		'genre'=>$_POST['game_genere'],
-		'price'=>$_POST['price'],
-		'website'=>$_POST['developers_website'],
-		'earlyAccess'=>'n/a',
-		'personalRating'=>$_POST['rating'],
-		'details'=>$_POST['game_desc']
-		];
-		modifyJSON('./data/data.json',$_GET['index'],$editsMade);
-		header('Location:details.php?index='.$_GET['index'].'');
+	require_once('phpclasslayout.php');
+	$game = new Game;
+	$game->modifyValue($_POST,$_GET['index']);
+	//require_once('./utils/JSONfunctions.php');
+	//$editsMade = [
+	//	'name'=>$_POST['game_name'],
+	//	'picture'=>$_POST['image_link'],
+	//	'genre'=>$_POST['game_genere'],
+	//	'price'=>$_POST['price'],
+	//	'website'=>$_POST['developers_website'],
+	//	'earlyAccess'=>'n/a',
+	//	'personalRating'=>$_POST['rating'],
+	//	'details'=>$_POST['game_desc']
+	//	];
+	//	modifyJSON('./data/data.json',$_GET['index'],$editsMade);
+	//	header('Location:details.php?index='.$_GET['index'].'');
 	}
 
 // load contents from file

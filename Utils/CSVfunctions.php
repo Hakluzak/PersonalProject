@@ -7,7 +7,7 @@ function readCSV($file,$index=null,$delimiter=';'){
 	$count=0;
 	while(!feof($handle)){
 		$line=fgets($handle);
-		if(!isset($line{0})) continue;
+		if(!isset($line{0})|| strstr($line,"<?php die() ?>")) continue;
 		if(isset($index) && $index==$count){
 			fclose($handle);
 			return explode($delimiter,$line);
@@ -33,8 +33,8 @@ function deleteCSV($file,$index,$delimiter=';'){
 
 function modifyCSV($file,$index,$info,$delimiter=';'){
 	$data=readCSV($file);
-	if($index>count($data)-1) return false;
-	$data[$index]=$info;
+	if ($index > count($data) - 1) return false;
+	$data[$index] = $info;
 	echo '<pre>';
 	print_r($data);
 	writeAllCSV($file,$data,$delimiter);

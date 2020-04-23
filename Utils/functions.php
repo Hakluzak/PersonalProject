@@ -21,24 +21,7 @@ function read($filename){
 
 
 //a CSV file is a format of storing data where everything is seperated by a SPECIFIC character
-function readCSV($filename,$target=null){
-	$handle=fopen($filename,'r');
-	$temp=[];
-	$counter=0;
-	while(!feof($handle)) 
-		if($target==null || $counter<$target){
-			$temp[]=explode(';',fgets($handle));
-			$counter++;
-			continue;
-		}
-		else{
-			$temp=explode(';',fgets($handle));
-			fclose($handle);
-			return temp;
-		}
-	fclose($handle);
-	return $temp;
-}
+
 
 //php has a built in thing that is used for seperating CSV files.
 //explode('special character','string to split');

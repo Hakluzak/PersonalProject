@@ -7,27 +7,25 @@ if (!is_logged('uID')){
 }
 
 
-$handle=fopen('./data/data.json','r');
-
 
 require('./utils/functions.php');
 
-$games=jsonToArray('./data/data.json');
 
-require_once('./utils/JSONfunctions.php');
-
+require_once('phpclasslayout.php');
 if ($_POST != NULL){
-	$newgame = [
-		'name'=>$_POST['game_name'],
-		'picture'=>$_POST['image_link'],
-		'genre'=>$_POST['game_genere'],
-		'price'=>$_POST['price'],
-		'website'=>$_POST['developers_website'],
-		'earlyAccess'=>'n/a',
-		'personalRating'=>$_POST['rating'],
-		'details'=>$_POST['game_desc']
-		];
-	writeJSON('./data/data.json',$newgame);
+	$game=new Game;
+	$game->create($_POST);
+	//$newgame = [
+	//	'name'=>$_POST['game_name'],
+	//	'picture'=>$_POST['image_link'],
+	//	'genre'=>$_POST['game_genere'],
+	//	'price'=>$_POST['price'],
+	//	'website'=>$_POST['developers_website'],
+	//	'earlyAccess'=>'n/a',
+	//	'personalRating'=>$_POST['rating'],
+	//	'details'=>$_POST['game_desc']
+	//	];
+	
 	header("Location:index.php?create=done");
 	}
 

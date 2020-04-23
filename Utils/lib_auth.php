@@ -32,7 +32,7 @@ function signup($database_file,$success_URL){
 		
 		// Store data in db
 		$h=fopen($database_file,'a+');
-		fwrite($h,$_POST['email'].';'.$_POST['password'].PHP_EOL);
+		fwrite($h,$_POST['email'].';'.$_POST['password'].';'.'n/a'.'n/a'.PHP_EOL);
 		fclose($h);
 		header('location: '.$success_URL.'?message=signup');
 	}

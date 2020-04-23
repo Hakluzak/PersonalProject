@@ -1,14 +1,14 @@
 <?php
-require_once('./utils/lib_auth.php');
+require_once('../utils/lib_auth.php');
 
 if (!is_logged('uID')){ 
 	header('location: index.php');
 	die();
 }
 
-require_once('phpclasslayout.php');
-$game = new Game;
-$game->deleteValue($_GET['index']);
+require_once('userclass.php');
+$user = new User;
+$user->deleteValue($_GET['index']);
 header("Location:index.php?delete=yes");
 ?>
 <!doctype html>
