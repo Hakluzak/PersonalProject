@@ -1,10 +1,22 @@
 <?php
-$handle=fopen('./data/data.json','r');
+
+$sqlsettings=[
+	'host'=>'localhost',
+	'db'=>'gamereview',
+	'user'=>'root',
+	'pass'=>''
+];
+
+$opt=[
+	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES=>false,
+];
+	
+$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
 
 
-require_once('./utils/functions.php');
-//require_once('./utils/lib_auth.php');
-$games=jsonToArray('./data/data.json');
+
 
 $title='Home';
 
@@ -44,16 +56,18 @@ require_once('./reqs/header.php');
 	<h1>Available Games</h1>
 	<hr>
 	<?php
-		for($i=0;$i<count($games);$i++){
+		$result=$pdo->query('SELECT * FROM games');
+		for($i=1;$i<=$result->rowCount();$i++){
+				$record=$result->fetch();
 				if (is_logged('uID')) echo '<a href="modify.php?index='.$i.'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>';
 				echo'<div class="media">
-						<img id="logo" src="'.$games[$i]['picture'].'" class="mr-3" style="max-width:200px">
+						<img id="logo" src="'.$record['imagelink'].'" class="mr-3" style="max-width:200px">
 					<div class="media-body">
-						<h5 class="mt-0">'.$games[$i]['name'].'</h5>
-						<p>Genre: '.$games[$i]['genre'].'</p>
-						<p>Price: $'.$games[$i]['price'].'</p>
-						<p>Website:<a href="'.$games[$i]['website'].'" target="_blank"><button type="button" class="btn btn-dark">Click here to visit their website.</button></a></p>
-						<p><a href="details.php?index='.$i.'"><button type="button" class="btn btn-dark">Click to see details</button></a></p>
+						<h5 class="mt-0">'.$record['name'].'</h5>
+						<p>Genre: '.$record['genre'].'</p>
+						<p>Price: $'.$record['price'].'</p>
+						<p>Website:<a href="'.$record['devweblink'].'" target="_blank"><button type="button" class="btn btn-dark">Click here to visit their website.</button></a></p>
+						<p><a href="details.php?index='.$record['ID'].'"><button type="button" class="btn btn-dark">Click to see details</button></a></p>
 					</div>
 				</div>
 			<hr>';

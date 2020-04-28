@@ -1,22 +1,24 @@
 <?php
-//require_once('data.php');
 
-require_once('./utils/functions.php');
+$sqlsettings=[
+	'host'=>'localhost',
+	'db'=>'gamereview',
+	'user'=>'root',
+	'pass'=>''
+];
 
-$games=jsonToArray('./data/data.json');
-//$json_string=file_get_contents('data.json');
-//$games=json_decode($json_string,true);
+$opt=[
+	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES=>false,
+];
+	
+$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
 
-$title=$games[$_GET['index']]['name']; 
-if (!isset($_GET['index'])){
-	die('Im dieing because of you. Go back <a href="index.php">Home</a>.');
-	}
 
 
-if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($games))){
-	die('Im dieing because of you. Go back <a href="index.php">Home</a>.');
-	}
 
+$title='Details';
 ?>
 <!doctype html>
 <style>
@@ -49,8 +51,11 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 	 <div class="container" style="background-color:#bfbfbf">
 	<?php
 	require_once('./reqs/nav.php');
-	?>
-		<h1><?= $games[$_GET['index']]['name'] ?></h1>
+	
+		$result=$pdo->query('SELECT * FROM games WHERE ID='.$_GET['index'].'');
+		$record=$result->fetch();
+		?>
+		<h1><?= $record['name'] ?></h1>
 		<div class="nav">
 			<?php
 			if (is_logged('uID')) echo '
@@ -64,12 +69,12 @@ if (!is_numeric($_GET['index']) ||($_GET['index']<0 || $_GET['index']>count($gam
 			</ul>'
 			?>
 		</div>
-		<img id="logo" src="<?=$games[$_GET['index']]['picture']?>" style="max-width:500px"/>
-		<p class="webLnk"><a href="<?= $games[$_GET['index']]['website'] ?>" target="_blank"><button type="button" class="btn btn-dark">Official Website</button></a></p>
-		<p>$<?= $games[$_GET['index']]['price']?></p>
-		<p>Early Access: <?= $games[$_GET['index']]['earlyAccess']?></p>
-		<p><?= $games[$_GET['index']]['details']?></p>
-		<p class="webLnk"><span class="badge badge-secondary">Personal Rating: <?= $games[$_GET['index']]['personalRating']?></span></p>
+		<img id="logo" src="<?=$record['imagelink']?>" style="max-width:500px"/>
+		<p class="webLnk"><a href="<?= $record['devweblink'] ?>" target="_blank"><button type="button" class="btn btn-dark">Official Website</button></a></p>
+		<p>$<?= $record['price']?></p>
+		<!--<p>Early Access:  //$record['earlyAccess']</p> -->
+		<p><?= $record['description']?></p>
+		<p class="webLnk"><span class="badge badge-secondary">Personal Rating: <?= $record['rating']?></span></p>
 	 </div>
 	</body>
 	

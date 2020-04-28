@@ -21,15 +21,15 @@ require_once('C:xampp/htdocs/PersonalProject/utils/lib_auth.php');
 				</li>';
 				if (!is_logged('uID')) echo '
 				<li>
-					<a class="nav-link" href="signup.php"><button type="button" class="btn btn-info">Sign up</button></a>
+					<a class="nav-link" href="'.'/personalproject/signup.php'.'"><button type="button" class="btn btn-info">Sign up</button></a>
 				</li>';
 				if (!is_logged('uID')) echo '
 				<li>
-					<a class="nav-link" href="signin.php"><button type="button" class="btn btn-info">Sign in</button></a>
+					<a class="nav-link" href="'.'/personalproject/signin.php'.'"><button type="button" class="btn btn-info">Sign in</button></a>
 				</li>';				
 				if (is_logged('uID')) echo '
 				<li>
-					<a class="nav-link" href="signout.php"><button type="button" class="btn btn-danger">Sign Out</button></a>
+					<a class="nav-link" href="'.'/personalproject/signout.php'.'"><button type="button" class="btn btn-danger">Sign Out</button></a>
 				</li>';
 				?>
 			</ul>

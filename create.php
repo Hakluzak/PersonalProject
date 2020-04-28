@@ -6,15 +6,37 @@ if (!is_logged('uID')){
 	die();
 }
 
+$sqlsettings=[
+	'host'=>'localhost',
+	'db'=>'gamereview',
+	'user'=>'root',
+	'pass'=>''
+];
+
+$opt=[
+	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES=>false,
+];
+	
+$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
 
 
-require('./utils/functions.php');
-
-
-require_once('phpclasslayout.php');
+//require('./utils/functions.php');
+//require_once('gameclass.php');
 if ($_POST != NULL){
-	$game=new Game;
-	$game->create($_POST);
+	//Using SQL library to insert game
+	$pdo->query('INSERT INTO games (ID,name,imagelink,genre,price,devweblink,rating,description) VALUES ("NULL","'.$_POST['game_name'].'",
+	"'.$_POST['image_link'].'",
+	"'.$_POST['game_genere'].'",
+	"'.$_POST['price'].'",
+	"'.$_POST['developers_website'].'",
+	"'.$_POST['rating'].'",
+	"'.$_POST['game_desc'].'")');
+	
+	//$game=new Game;
+	//$game->create($_POST);
+	
 	//$newgame = [
 	//	'name'=>$_POST['game_name'],
 	//	'picture'=>$_POST['image_link'],
