@@ -66,17 +66,19 @@ class Dbuse {
 		header('Location:index.php');
 	}
 	
-	public function conlog($postVals) {
+	public function conlog($postVals): string {
 		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
 		
-		$q=$pdo->query('SELECT * FROM users');
+		$check = 'fail';
+		$result=$pdo->query('SELECT * FROM users');
 		for($i=1;$i<=$result->rowCount();$i++){
 			$record=$result->fetch();
-				if ($record['email'] == $postVals['email'])
-					if ($record['password'] == password_verify($postVals['password'],trim($postVals['password'])){
-					return sucess;
-					}
-				else return fail;
-		
+			if ($record['email'] == $postVals['email']) {
+				if (password_verify($postVals['password'],$record['password']) == true){
+					return $check = 'success';
+				} 
+			}
+		}
+	return $check;
 	}
 }

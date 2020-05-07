@@ -38,22 +38,18 @@ function signin($database_file,$user_key,$success_URL){
 		
 		
 		// Check if email exists
-		$h=fopen($database_file,'r');
 		$userid=1;
-		fgets($h);
-		while(!feof($h)){
-			$line=fgets($h);
-			if(strstr($line,$_POST['email'])){
-				$line=explode(';',$line);
-				// check if passwords match
-				
-				$_SESSION[$user_key]=$userid;
-				header('location:'.$success_URL);
-			}
+		require_once('./sqldb/dbclass.php');
+		$validationcheck=new Dbuse;
+		$check = $validationcheck->conlog($_POST);
+		if ($check == 'success'){
+			$_SESSION[$user_key]=$userid;
+			header('location:'.$success_URL);
 			$userid++;
-		}
-		fclose($h);
+			}
+		else{
 		return 'The e-mail you entered is not associated with any account';
+		}
 	}
 }
 
