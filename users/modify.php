@@ -1,10 +1,27 @@
 <?php
 if ($_POST != NULL){
-	require_once('userclass.php');
-	$user = new User;
-	$user->modify($_POST,$_GET['index']);
-	header('location:index.php');
+	require_once('../sqldb/dbclass.php');
+	$user = new Dbuse;
+	$user->euser($_POST,$_GET['index']);
 }
+
+$sqlsettings=[
+	'host'=>'localhost',
+	'db'=>'gamereview',
+	'user'=>'root',
+	'pass'=>''
+];
+
+$opt=[
+	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES=>false,
+];
+	
+$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+
+$result=$pdo->query('SELECT * FROM users WHERE ID='.$_GET['index'].'');
+$user=$result->fetch();
 
 
 require_once('../utils/functions.php');
@@ -29,24 +46,17 @@ require_once('../reqs/header.php');
 	require_once('../reqs/nav.php');
 	?>
    <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
-		<?php
-		require_once('../Utils/CSVfunctions.php');
-		$userArray = readCSV('../data/users.csv.php');
-		$user = $userArray[$_GET['index']];
-		?>
+		
 			<form method="POST" action="modify.php?index=<?php echo $_GET['index'] ?>">
 			<div class="form-group">
 				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" value="<?= $user[0] ?>" required>
+				<input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" value="<?= $user['email'] ?>" required>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">First Name</label>
-				<input type="text" class="form-control" id="fName" name="fName" value="<?= $user[2] ?>" required>
+				<label for="exampleInputPassword1">Status</label>
+				<input type="text" class="form-control" id="status" name="status" value="<?= $user['status'] ?>" required>
 			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">Last Name</label>
-				<input type="text" class="form-control" id="lName" name="lName" value="<?= $user[3] ?>" required>
-			</div>
+			
 			<button type="submit" class="btn btn-primary">Modify User</button>
 		</form>
 	</div>

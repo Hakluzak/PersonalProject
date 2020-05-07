@@ -1,7 +1,23 @@
 <?php
+
 require_once('../utils/functions.php');
 
-$title='Home';
+$sqlsettings=[
+	'host'=>'localhost',
+	'db'=>'gamereview',
+	'user'=>'root',
+	'pass'=>''
+];
+
+$opt=[
+	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+	PDO::ATTR_EMULATE_PREPARES=>false,
+];
+	
+$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+
+$title='Admin Home';
 
 require_once('../reqs/header.php');
 ?>
@@ -23,26 +39,22 @@ require_once('../reqs/header.php');
    <body style="background: url(https://fractalsoftworks.com/wp-content/themes/starfarer/images/bg_top_stars.jpg) repeat-x top center; background-color: black;">
 	<?php
 	//show a list of users in a table
-	require_once('../Utils/CSVfunctions.php');
-	$userArray = readCSV('../data/users.csv.php');
 	echo '<table>
 			<tr>
-				<td>Username</td>
+				<td>Email</td>
 				<td>Password</td>
-				<td>First Name</td>
-				<td>Last Name</td>
+				<td>Status</td>
 			</tr>';
-	for ($i = 0; $i < count($userArray); $i++){
+	require_once('../sqldb/dbclass.php');
+	
+	$result=$pdo->query('SELECT * FROM users');
+		for($i=1;$i<=$result->rowCount();$i++){
+		$record=$result->fetch();
 		echo '
 		<tr>
-			<td>'.$userArray[$i][0].'</td>
-			<td>'.$userArray[$i][1].'</td>';
-			if (!isset($userArray[$i][2])){
-				echo '<td>N/A</td>';
-			} else echo '<td>'.$userArray[$i][2].'</td>';
-			if (!isset($userArray[$i][3])){
-				echo '<td>N/A</td>';
-			} else echo '<td>'.$userArray[$i][3].'</td>';
+			<td>'.$record['email'].'</td>
+			<td>'.$record['password'].'</td>
+			<td>'.$record['status'].'</td>';
 			echo '<td><a class="nav-link" href="modify.php?index='.$i.'"><button type="button" class="btn btn-secondary">Modify</button></a></td>';
 			echo '<td><a class="nav-link" href="delete.php?index='.$i.'"><button type="button" class="btn btn-secondary">Delete</button></a></td>';
 		echo '</tr>';

@@ -14,26 +14,13 @@ function signup($database_file,$success_URL){
 		$_POST['password']=trim($_POST['password']);
 		if(strlen($_POST['password'])<8) return 'Please, enter a password that is at least 8 characters long.';
 		
-		// Create file if it does not exist
-		if(!file_exists($database_file)){
-			$h=fopen($database_file,'w');
-			fwrite($h,'<?php die() ?>'."\n");
-			fclose($h);
-		}
-		// Check for duplicates
-		$h=fopen($database_file,'r');
-		while(!feof($h)){
-			$line=fgets($h);
-			if(strstr($line,$_POST['email'])) return 'The email you entered is already associated with an account.';
-		}
-		fclose($h);
 		// Encrypt password
 		$_POST['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
 		
 		// Store data in db
-		$h=fopen($database_file,'a+');
-		fwrite($h,$_POST['email'].';'.$_POST['password'].';'.'n/a'.'n/a'.PHP_EOL);
-		fclose($h);
+		require_once('./sqldb/dbclass.php');
+		$user=new Dbuse;
+		$user->cuser($_POST);
 		header('location: '.$success_URL.'?message=signup');
 	}
 }
@@ -49,12 +36,7 @@ function signin($database_file,$user_key,$success_URL){
 		$_POST['password']=trim($_POST['password']);
 		if(strlen($_POST['password'])<8) return 'Please, enter a password that is at least 8 characters long.';
 		
-		// Create file if it does not exist
-		if(!file_exists($database_file)){
-			$h=fopen($database_file,'w');
-			fwrite($h,'');
-			fclose($h);
-		}
+		
 		// Check if email exists
 		$h=fopen($database_file,'r');
 		$userid=1;
@@ -64,7 +46,7 @@ function signin($database_file,$user_key,$success_URL){
 			if(strstr($line,$_POST['email'])){
 				$line=explode(';',$line);
 				// check if passwords match
-				if(!password_verify($_POST['password'],trim($line[1]))) return 'The password you entered is not correct';
+				
 				$_SESSION[$user_key]=$userid;
 				header('location:'.$success_URL);
 			}

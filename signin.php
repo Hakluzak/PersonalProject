@@ -10,7 +10,6 @@ if(is_logged('uID')) header('location: index.php');
 if(count($_POST)>0){
 	$error=signin('./data/users.csv.php','uID','private.php');
 	if(isset($error{0})) echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
-	else echo '<div class="alert alert-success" role="alert">You made it!!!!!!!!!!!</div>';
 }
 ?>
 <!doctype html>

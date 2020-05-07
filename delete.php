@@ -6,21 +6,22 @@ if (!is_logged('uID')){
 	die();
 }
 
-$sqlsettings=[
-	'host'=>'localhost',
-	'db'=>'gamereview',
-	'user'=>'root',
-	'pass'=>''
-];
+//$sqlsettings=[
+//	'host'=>'localhost',
+//	'db'=>'gamereview',
+//	'user'=>'root',
+//	'pass'=>''
+//];
 
-$opt=[
-	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-	PDO::ATTR_EMULATE_PREPARES=>false,
-];
+//$opt=[
+//	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+//	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+//	PDO::ATTR_EMULATE_PREPARES=>false,
+//];
 	
-$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+//$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
 
-
-$pdo->query('DELETE FROM games WHERE ID ='.$_GET['index'].'');
-header("Location:index.php?delete=yes");
+require_once("./sqldb/dbclass.php");
+$delVal = new Dbuse;
+$delVal->deleteDB($_GET['index']);
+header('location: index.php?delete=yes');

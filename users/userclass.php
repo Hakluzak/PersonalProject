@@ -14,7 +14,7 @@ class User {
 			];
 			
 		
-		require_once('../Utils/CSVfunctions.php');
+		require_once('../utils/CSVfunctions.php');
 		writeCSV('../data/users.csv.php',$newuser);
 	}
 	

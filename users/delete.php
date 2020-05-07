@@ -6,10 +6,10 @@ if (!is_logged('uID')){
 	die();
 }
 
-require_once('userclass.php');
-$user = new User;
-$user->deleteValue($_GET['index']);
-header("Location:index.php?delete=yes");
+require_once("../sqldb/dbclass.php");
+$delVal = new Dbuse;
+$delVal->duser($_GET['index']);
+header('location: index.php');
 ?>
 <!doctype html>
 <style>

@@ -21,20 +21,15 @@ $opt=[
 	
 $pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
 
-
 $result=$pdo->query('SELECT * FROM games WHERE ID='.$_GET['index'].'');
 $game=$result->fetch();
 
 if ($_POST != NULL){
 	//Using SQL library to update game
-	$pdo->query('UPDATE games SET name = "'.$_POST['game_name'].'",
-	imagelink = "'.$_POST['image_link'].'",
-	genre = "'.$_POST['game_genere'].'",
-	price = "'.$_POST['price'].'",
-	devweblink = "'.$_POST['developers_website'].'",
-	rating = "'.$_POST['rating'].'",
-	description = "'.$_POST['game_desc'].'" WHERE ID = '.$_GET['index'].'');
-	header('Location:details.php?index='.$_GET['index'].'');
+	require_once("./sqldb/dbclass.php");
+	$game = new Dbuse;
+	
+	$game->edit($_POST,$_GET['index']);
 	
 	//require_once('phpclasslayout.php');
 	//$game = new Game;
