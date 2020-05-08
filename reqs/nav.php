@@ -32,6 +32,16 @@ require_once(APP_ROOT.'/utils/lib_auth.php');
 				<li>
 					<a class="nav-link" href="'.'/personalproject/signout.php'.'"><button type="button" class="btn btn-danger">Sign Out</button></a>
 				</li>';
+				if (Auth::is_logged('uID')) {
+					$pdo=mysqldb::connect();
+					$q=$pdo->prepare('SELECT status FROM users WHERE ID=?');
+					$q->execute([$_SESSION['uID']]);
+					$user=$q->fetch();
+					if ($user['status'] == 'A') echo '
+						<li>
+							<a class="nav-link" href="'.'/personalproject/users/index.php'.'"><button type="button" class="btn btn-danger">Admin Panel</button></a>
+						</li>';
+				}
 				?>
 			</ul>
 		</div>
