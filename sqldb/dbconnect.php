@@ -1,7 +1,6 @@
 <?php
 class mysqldb {
 	public static function connect($settings=null){
-	require_once('settings.php');
 	if (!isset($settings)) $settings=DB_SETTINGS;
 	$opt=[
 		PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,

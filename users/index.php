@@ -1,21 +1,16 @@
 <?php
-
-require_once('../utils/functions.php');
-
-$sqlsettings=[
-	'host'=>'localhost',
-	'db'=>'gamereview',
-	'user'=>'root',
-	'pass'=>''
-];
-
-$opt=[
-	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-	PDO::ATTR_EMULATE_PREPARES=>false,
-];
-	
-$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+require_once('../settings.php');
+require_once(APP_ROOT.'/sqldb/dbconnect.php');
+require_once('../utils/lib_auth.php');
+if (!Auth::is_logged('uID')){ 
+	header('location: ../index.php');
+	die();
+}
+$pdo=mysqldb::connect();
+$q=$pdo->prepare('SELECT status FROM users WHERE ID=?');
+$q->execute([$_SESSION['uID']]);
+$user=$q->fetch();
+if ($user['status'] != 'A') header ('location: ../index.php');
 
 $title='Admin Home';
 
@@ -55,8 +50,8 @@ require_once('../reqs/header.php');
 			<td>'.$record['email'].'</td>
 			<td>'.$record['password'].'</td>
 			<td>'.$record['status'].'</td>';
-			echo '<td><a class="nav-link" href="modify.php?index='.$i.'"><button type="button" class="btn btn-secondary">Modify</button></a></td>';
-			echo '<td><a class="nav-link" href="delete.php?index='.$i.'"><button type="button" class="btn btn-secondary">Delete</button></a></td>';
+			echo '<td><a class="nav-link" href="modify.php?index='.$record['id'].'"><button type="button" class="btn btn-secondary">Modify</button></a></td>';
+			echo '<td><a class="nav-link" href="delete.php?index='.$record['id'].'"><button type="button" class="btn btn-secondary">Delete</button></a></td>';
 		echo '</tr>';
 	}
 	echo '</table>';

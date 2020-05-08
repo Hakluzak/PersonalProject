@@ -1,21 +1,9 @@
 <?php
 
-$sqlsettings=[
-	'host'=>'localhost',
-	'db'=>'gamereview',
-	'user'=>'root',
-	'pass'=>''
-];
+require_once('settings.php');
+require_once('./sqldb/dbconnect.php');
 
-$opt=[
-	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-	PDO::ATTR_EMULATE_PREPARES=>false,
-];
-	
-$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
-
-
+$pdo=mysqldb::connect();
 
 
 $title='Home';
@@ -59,7 +47,7 @@ require_once('./reqs/header.php');
 		$result=$pdo->query('SELECT * FROM games');
 		for($i=1;$i<=$result->rowCount();$i++){
 				$record=$result->fetch();
-				if (is_logged('uID')) echo '<a href="modify.php?index='.$record['ID'].'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>';
+				if (Auth::is_logged('uID')) echo '<a href="modify.php?index='.$record['ID'].'" style="margin-left:95%"><button type="button" class="btn btn-secondary">Edit</button></a>';
 				echo'<div class="media">
 						<img id="logo" src="'.$record['imagelink'].'" class="mr-3" style="max-width:200px">
 					<div class="media-body">

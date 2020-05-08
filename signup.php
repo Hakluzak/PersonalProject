@@ -1,14 +1,14 @@
 <?php
-require_once('./utils/JSONfunctions.php');
-require_once('./utils/lib_auth.php');
+require_once('settings.php');
 
 $title = "Sign up";
 
-if(is_logged('uID')) header('location: index.php');
+require_once(APP_ROOT.'/utils/lib_auth.php');
+if(Auth::is_logged('uID')) header('location: index.php');
 
 
 if(count($_POST)>0){
-	$error=signup('data/users.csv.php','signin.php');
+	$error=Auth::signup($_POST,'signin.php');
 	if(isset($error{0})) echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
 }
 ?>

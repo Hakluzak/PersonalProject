@@ -1,4 +1,16 @@
 <?php
+require_once('../settings.php');
+require_once('../utils/lib_auth.php');
+if (!Auth::is_logged('uID')){ 
+	header('location: ../index.php');
+	die();
+}
+$pdo=mysqldb::connect();
+$q=$pdo->prepare('SELECT status FROM users WHERE ID=?');
+$q->execute([$_SESSION['uID']]);
+$user=$q->fetch();
+if ($user['status'] != 'A') header ('location: ../index.php');
+
 class User {
 	public $email;
 	public $password;

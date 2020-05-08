@@ -1,11 +1,12 @@
 <?php
-require_once('C:xampp/htdocs/PersonalProject/utils/lib_auth.php');
+require_once(__DIR__ .'/../settings.php');
+require_once(APP_ROOT.'/utils/lib_auth.php');
 ?>
 <!doctype html>
 <html lang="en">
 <head>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.php">IndieCo</a>
+		<a class="navbar-brand" href="<?=APP_ROOT.'/index.php' ?>">IndieCo</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -15,19 +16,19 @@ require_once('C:xampp/htdocs/PersonalProject/utils/lib_auth.php');
 					<a class="nav-link" href="index.php"><button type="button" class="btn btn-primary">Home</button></a>
 				</li>
 				<?php
-				if (is_logged('uID')) echo '
+				if (Auth::is_logged('uID')) echo '
 				<li class="nav-item">
 					<a class="nav-link" href="create.php"><button type="button" class="btn btn-primary">Add Your Game</button></a>
 				</li>';
-				if (!is_logged('uID')) echo '
+				if (!Auth::is_logged('uID')) echo '
 				<li>
 					<a class="nav-link" href="'.'/personalproject/signup.php'.'"><button type="button" class="btn btn-info">Sign up</button></a>
 				</li>';
-				if (!is_logged('uID')) echo '
+				if (!Auth::is_logged('uID')) echo '
 				<li>
 					<a class="nav-link" href="'.'/personalproject/signin.php'.'"><button type="button" class="btn btn-info">Sign in</button></a>
 				</li>';				
-				if (is_logged('uID')) echo '
+				if (Auth::is_logged('uID')) echo '
 				<li>
 					<a class="nav-link" href="'.'/personalproject/signout.php'.'"><button type="button" class="btn btn-danger">Sign Out</button></a>
 				</li>';

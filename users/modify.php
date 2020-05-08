@@ -1,28 +1,27 @@
 <?php
+require_once('../settings.php');
+require_once('../utils/lib_auth.php');
+if (!Auth::is_logged('uID')){ 
+	header('location: ../index.php');
+	die();
+}
+$pdo=mysqldb::connect();
+$q=$pdo->prepare('SELECT status FROM users WHERE ID=?');
+$q->execute([$_SESSION['uID']]);
+$user=$q->fetch();
+if ($user['status'] != 'A') header ('location: ../index.php');
 if ($_POST != NULL){
 	require_once('../sqldb/dbclass.php');
 	$user = new Dbuse;
 	$user->euser($_POST,$_GET['index']);
 }
 
-$sqlsettings=[
-	'host'=>'localhost',
-	'db'=>'gamereview',
-	'user'=>'root',
-	'pass'=>''
-];
-
-$opt=[
-	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-	PDO::ATTR_EMULATE_PREPARES=>false,
-];
-	
-$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+require_once('../settings.php');
+require_once(APP_ROOT.'/sqldb/dbconnect.php');
+$pdo=mysqldb::connect();
 
 $result=$pdo->query('SELECT * FROM users WHERE ID='.$_GET['index'].'');
 $user=$result->fetch();
-
 
 require_once('../utils/functions.php');
 

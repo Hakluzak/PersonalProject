@@ -1,5 +1,6 @@
 <?php
-define ('APR_ROOT',__DIR__);
+define('APP_ROOT',__DIR__);
+define('APP_FOLDER','personalproject');
 
 define('DB_SETTINGS',[
 	'host'=>'localhost',
@@ -7,3 +8,4 @@ define('DB_SETTINGS',[
 	'user'=>'root',
 	'pass'=>''
 ]);
+session_start();

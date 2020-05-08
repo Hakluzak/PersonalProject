@@ -2,12 +2,9 @@
 
 //database class
 class Dbuse{
-	
-	public $status = 'N';
-	
 	public function create ($postVals) {
-		require_once('dbconnect.php');
 		require_once('settings.php');
+		require_once('dbconnect.php');
 		$pdo=mysqldb::connect();
 		
 
@@ -16,8 +13,8 @@ class Dbuse{
 	}
 	
 	public function deleteDB ($ID){
-		require_once('dbconnect.php');
 		require_once('settings.php');
+		require_once('dbconnect.php');
 		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('DELETE FROM games WHERE ID =?');
@@ -25,8 +22,8 @@ class Dbuse{
 	}
 	
 	public function edit ($postVals,$id){
-		require_once('dbconnect.php');
 		require_once('settings.php');
+		require_once('dbconnect.php');
 		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('UPDATE games SET name = ?, imagelink = ?,	genre = ?, price = ?, devweblink = ?,	rating = ?, description = ? WHERE ID = ?');
@@ -38,8 +35,8 @@ class Dbuse{
 	
 	
 	public function cuser($postVals) {
+		require_once(__DIR__ .'/../settings.php');
 		require_once('dbconnect.php');
-		require_once('settings.php');
 		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('INSERT INTO users (ID,email,password,status) VALUES ("NULL",?,?,"NULL")');
@@ -47,15 +44,17 @@ class Dbuse{
 	}
 	
 	public function duser($id) {
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
+		require_once(__DIR__ .'/../settings.php');
+		require_once('dbconnect.php');
+		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('DELETE FROM users WHERE ID =?');
 		$q->execute([$id]);
 	}
 	
 	public function euser($postVals) {
+		require_once(__DIR__ .'/../settings.php');
 		require_once('dbconnect.php');
-		require_once('settings.php');
 		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('UPDATE users SET email = ?, status = ? WHERE id = ?');
@@ -65,10 +64,8 @@ class Dbuse{
 	}
 	
 	public function conlog($postVals): string {
-		
-		
-		require_once('dbconnect.php');
 		require_once('settings.php');
+		require_once('dbconnect.php');
 		$pdo=mysqldb::connect();
 		
 		$check = 'fail';

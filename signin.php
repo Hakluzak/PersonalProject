@@ -1,14 +1,14 @@
 <?php
-require_once('./utils/JSONfunctions.php');
+require_once('settings.php');
 require_once('./utils/lib_auth.php');
 
 $title = "Sign in";
 
-if(is_logged('uID')) header('location: index.php');
+if(Auth::is_logged('uID')) header('location: index.php');
 
 
 if(count($_POST)>0){
-	$error=signin('./data/users.csv.php','uID','private.php');
+	$error=Auth::signin($_POST,'uID','private.php');
 	if(isset($error{0})) echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
 }
 ?>
@@ -62,6 +62,7 @@ if(count($_POST)>0){
 				<input type="password" class="form-control" id="password" name="password">
 			</div>
 			<button type="submit" class="btn btn-primary">Sign in</button>
+			<p>Dont have an account? <a href="signup.php">Create new account</a></p>
 		</form>
 		<br>
 	 </div>

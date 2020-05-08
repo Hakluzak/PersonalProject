@@ -1,19 +1,8 @@
 <?php
 
-$sqlsettings=[
-	'host'=>'localhost',
-	'db'=>'gamereview',
-	'user'=>'root',
-	'pass'=>''
-];
-
-$opt=[
-	PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-	PDO::ATTR_EMULATE_PREPARES=>false,
-];
-	
-$pdo=new PDO('mysql:host='.$sqlsettings['host'].';dbname='.$sqlsettings['db'].';charset=utf8mb4',$sqlsettings['user'],$sqlsettings['pass'],$opt);
+require_once('settings.php');
+require_once('./sqldb/dbconnect.php');
+$pdo=mysqldb::connect();
 
 
 
@@ -58,7 +47,7 @@ $title='Details';
 		<h1><?= $record['name'] ?></h1>
 		<div class="nav">
 			<?php
-			if (is_logged('uID')) echo '
+			if (Auth::is_logged('uID')) echo '
 			<ul class="nav nav-pills">
 				<li class="nav-item">
 					<a class="nav-link" href="modify.php?index='.$_GET['index'].'"><button type="button" class="btn btn-secondary">Modify</button></a>
