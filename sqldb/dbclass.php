@@ -1,40 +1,34 @@
 <?php
 
 //database class
-class Dbuse {
+class Dbuse{
 	
-	public static $sqlsettings=[
-		'host'=>'localhost',
-		'db'=>'gamereview',
-		'user'=>'root',
-		'pass'=>''
-	];
-		
-	public static $opt=[
-		PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-		PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-		PDO::ATTR_EMULATE_PREPARES=>false,
-	];
-	
-		
+	public $status = 'N';
 	
 	public function create ($postVals) {
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
+		
 
 		$q=$pdo->prepare('INSERT INTO games (ID,name,imagelink,genre,price,devweblink,rating,description) VALUES ("NULL",?,?,?,?,?,?,?)');
 		$q->execute([$postVals['game_name'],$postVals['image_link'],$postVals['game_genere'],$postVals['price'],$postVals['developers_website'],$postVals['rating'],$postVals['game_desc']]);
 	}
 	
 	public function deleteDB ($ID){
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
 		
 		$q=$pdo->prepare('DELETE FROM games WHERE ID =?');
 		$q->execute([$ID]);
 	}
 	
 	public function edit ($postVals,$id){
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
-
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
+		
 		$q=$pdo->prepare('UPDATE games SET name = ?, imagelink = ?,	genre = ?, price = ?, devweblink = ?,	rating = ?, description = ? WHERE ID = ?');
 		$q->execute([$_POST['game_name'],$postVals['image_link'],$postVals['game_genere'],$postVals['price'],$postVals['developers_website'],$postVals['rating'],$postVals['game_desc'],$id]);
 		
@@ -44,8 +38,10 @@ class Dbuse {
 	
 	
 	public function cuser($postVals) {
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
-
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
+		
 		$q=$pdo->prepare('INSERT INTO users (ID,email,password,status) VALUES ("NULL",?,?,"NULL")');
 		$q->execute([$postVals['email'],$postVals['password']]);
 	}
@@ -58,8 +54,10 @@ class Dbuse {
 	}
 	
 	public function euser($postVals) {
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
-
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
+		
 		$q=$pdo->prepare('UPDATE users SET email = ?, status = ? WHERE id = ?');
 		$q->execute([$postVals['email'],$postVals['status'],$_GET['index']]);
 		
@@ -67,7 +65,11 @@ class Dbuse {
 	}
 	
 	public function conlog($postVals): string {
-		$pdo=new PDO('mysql:host='.self::$sqlsettings['host'].';dbname='.self::$sqlsettings['db'].';charset=utf8mb4',self::$sqlsettings['user'],self::$sqlsettings['pass'],self::$opt);
+		
+		
+		require_once('dbconnect.php');
+		require_once('settings.php');
+		$pdo=mysqldb::connect();
 		
 		$check = 'fail';
 		$result=$pdo->query('SELECT * FROM users');
